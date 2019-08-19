@@ -21,9 +21,6 @@ public class PredefinedOfferParamE {
     @ManyToOne
     private PredefinedValuesE predefinedValuesE;
 
-    int value;
-
-
     private PredefinedOfferParamE() {
     }
 

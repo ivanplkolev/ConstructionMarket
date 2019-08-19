@@ -214,7 +214,7 @@ public class DatabaseLoader implements CommandLineRunner {
 //        maxs.put(1L, 100);
 
 
-        OfferSearchSpecification specification = new OfferSearchSpecification(searchInput, cat, mins, maxs);
+        OfferSearchSpecification specification = new OfferSearchSpecification(searchInput, cat, mins, maxs, null);
 
         List<OfferE> offers = offerRepo.findAll(specification);
 

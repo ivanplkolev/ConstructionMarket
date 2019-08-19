@@ -31,16 +31,19 @@ public class OffersController {
         Long cat = new Long(customQuery.get("cat"));
         Map<Long, Integer> mins = new HashMap<>();
         Map<Long, Integer> maxs = new HashMap<>();
+        Map<Long, Long> peredefinedVals = new HashMap<>();
 
         for (String key : customQuery.keySet()) {
             if (key.startsWith("min_")) {
                 mins.put(new Long(key.replace("min_", "")), new Integer(customQuery.get(key)));
             } else if (key.startsWith("max_")) {
                 maxs.put(new Long(key.replace("max_", "")), new Integer(customQuery.get(key)));
+            } else if (key.startsWith("pre_")) {
+                peredefinedVals.put(new Long(key.replace("pre_", "")), new Long(customQuery.get(key)));
             }
         }
 
-        OfferSearchSpecification specification = new OfferSearchSpecification(searchInput, cat, mins, maxs);
+        OfferSearchSpecification specification = new OfferSearchSpecification(searchInput, cat, mins, maxs, peredefinedVals);
 
         return offerRepo.findAll(specification);
     }

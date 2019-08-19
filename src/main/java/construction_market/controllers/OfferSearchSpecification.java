@@ -2,6 +2,7 @@ package construction_market.controllers;
 
 import construction_market.entities.OfferE;
 import construction_market.entities.categories.CategoryE;
+import construction_market.entities.categories.predefined.PredefinedOfferParamE;
 import construction_market.entities.categories.value_parameters.OfferParamE;
 import org.springframework.data.jpa.domain.Specification;
 
@@ -16,16 +17,19 @@ public class OfferSearchSpecification implements Specification<OfferE> {
     private Long cat;
     private Map<Long, Integer> mins;
     private Map<Long, Integer> maxs;
+    private Map<Long, Long> peredefinedVals;
 
 
     public OfferSearchSpecification(String searchInput,
                                     Long cat,
                                     Map<Long, Integer> mins,
-                                    Map<Long, Integer> maxs) {
+                                    Map<Long, Integer> maxs,
+                                    Map<Long, Long> peredefinedVals) {
         this.searchInput = searchInput;
         this.cat = cat;
         this.mins = mins;
         this.maxs = maxs;
+        this.peredefinedVals = peredefinedVals;
     }
 
     @Override
@@ -57,6 +61,14 @@ public class OfferSearchSpecification implements Specification<OfferE> {
                 Join<OfferE, OfferParamE> offerParamEJoin = root.join("offerParamEList");
                 predicates.add(cb.and(cb.equal(offerParamEJoin.<Long>get("reference"), max),
                         cb.lessThanOrEqualTo(offerParamEJoin.<Integer>get("value"), this.maxs.get(max))));
+            }
+        }
+
+        if (peredefinedVals != null && !peredefinedVals.isEmpty()) {
+            for (Long predefinedSearchId : peredefinedVals.keySet()) {
+                Join<OfferE, PredefinedOfferParamE> offerParamEJoin = root.join("predefinedOfferParamEList");
+                predicates.add(cb.and(cb.equal(offerParamEJoin.<Long>get("reference"), predefinedSearchId),
+                        cb.equal(offerParamEJoin.<Long>get("predefinedValuesE"), this.peredefinedVals.get(predefinedSearchId))));
             }
         }
 
