@@ -1,8 +1,9 @@
 package construction_market.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import construction_market.entities.categories.CategoryЕ;
-import construction_market.entities.categories.OfferParamE;
+import construction_market.entities.categories.CategoryE;
+import construction_market.entities.categories.value_parameters.OfferParamE;
+import construction_market.entities.categories.predefined.PredefinedOfferParamE;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -33,10 +34,13 @@ public class OfferE {
     private List<EventE> eventEList;
 
     @ManyToOne
-    private CategoryЕ categoryЕ;
+    private CategoryE categoryE;//todo - make it list
 
-    @OneToMany(cascade=CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
     private List<OfferParamE> offerParamEList;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<PredefinedOfferParamE> predefinedOfferParamEList;
 
     private OfferE() {
     }
@@ -44,15 +48,17 @@ public class OfferE {
     public OfferE(String title, String description, String phoneNumber,
                   List<ConversationE> conversationEList,
                   List<EventE> eventEList,
-                  CategoryЕ categoryЕ,
-                  List<OfferParamE> offerParamEList) {
+                  CategoryE categoryE,
+                  List<OfferParamE> offerParamEList,
+                  List<PredefinedOfferParamE> predefinedOfferParamEList) {
         this.title = title;
         this.phoneNumber = phoneNumber;
         this.description = description;
         this.conversationEList = conversationEList;
         this.eventEList = eventEList;
-        this.categoryЕ = categoryЕ;
+        this.categoryE = categoryE;
         this.offerParamEList = offerParamEList;
+        this.predefinedOfferParamEList = predefinedOfferParamEList;
     }
 
 }

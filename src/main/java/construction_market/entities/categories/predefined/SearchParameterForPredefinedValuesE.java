@@ -1,4 +1,4 @@
-package construction_market.entities.categories;
+package construction_market.entities.categories.predefined;
 
 import lombok.Data;
 
@@ -7,7 +7,7 @@ import java.util.List;
 
 @Data
 @Entity
-public class SearchParameterE {
+public class SearchParameterForPredefinedValuesE {
 
     @Id
     @GeneratedValue
@@ -19,10 +19,10 @@ public class SearchParameterE {
     private List<PredefinedValuesE> predefinedValuesEList;
 
 
-    private SearchParameterE() {
+    private SearchParameterForPredefinedValuesE() {
     }
 
-    public SearchParameterE(String name, List<PredefinedValuesE> predefinedValuesEList) {
+    public SearchParameterForPredefinedValuesE(String name, List<PredefinedValuesE> predefinedValuesEList) {
         this.name = name;
         this.predefinedValuesEList = predefinedValuesEList;
     }

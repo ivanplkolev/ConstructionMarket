@@ -20,7 +20,7 @@ public class AgreementE {
 
 //    @ManyToOne
 //    private
-//    CategoryЕ parent;
+//    CategoryE parent;
 
     private float totalPrice;
 

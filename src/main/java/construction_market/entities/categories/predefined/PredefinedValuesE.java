@@ -1,4 +1,4 @@
-package construction_market.entities.categories;
+package construction_market.entities.categories.predefined;
 
 import lombok.Data;
 

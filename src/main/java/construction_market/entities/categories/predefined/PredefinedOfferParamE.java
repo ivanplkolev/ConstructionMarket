@@ -1,4 +1,4 @@
-package construction_market.entities.categories;
+package construction_market.entities.categories.predefined;
 
 import lombok.Data;
 
@@ -9,27 +9,27 @@ import javax.persistence.ManyToOne;
 
 @Data
 @Entity
-public class OfferParamE {
+public class PredefinedOfferParamE {
 
     @Id
     @GeneratedValue
     private Long id;
 
     @ManyToOne
-    private SearchParameterE reference;
+    private SearchParameterForPredefinedValuesE reference;
 
     @ManyToOne
     private PredefinedValuesE predefinedValuesE;
 
-    long value;
+    int value;
 
 
-    private OfferParamE() {
+    private PredefinedOfferParamE() {
     }
 
-    public OfferParamE(SearchParameterE reference, PredefinedValuesE predefinedValuesE, long value) {
+    public PredefinedOfferParamE(SearchParameterForPredefinedValuesE reference,
+                                 PredefinedValuesE predefinedValuesE) {
         this.reference = reference;
         this.predefinedValuesE = predefinedValuesE;
-        this.value = value;
     }
 }

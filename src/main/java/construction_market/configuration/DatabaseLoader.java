@@ -1,23 +1,22 @@
 package construction_market.configuration;
 
 
+import construction_market.controllers.OfferSearchSpecification;
 import construction_market.entities.*;
-import construction_market.entities.categories.CategoryЕ;
-import construction_market.entities.categories.OfferParamE;
-import construction_market.entities.categories.PredefinedValuesE;
-import construction_market.entities.categories.SearchParameterE;
-import construction_market.repositories.CategoryRepo;
-import construction_market.repositories.SearchParamRepo;
-import construction_market.repositories.UserRepo;
+import construction_market.entities.categories.CategoryE;
+import construction_market.entities.categories.predefined.PredefinedOfferParamE;
+import construction_market.entities.categories.predefined.PredefinedValuesE;
+import construction_market.entities.categories.predefined.SearchParameterForPredefinedValuesE;
+import construction_market.entities.categories.value_parameters.OfferParamE;
+import construction_market.entities.categories.value_parameters.SearchParameterE;
+import construction_market.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 
 @Component
@@ -26,95 +25,111 @@ public class DatabaseLoader implements CommandLineRunner {
     private final CategoryRepo categoryRepo;
     private final UserRepo userRepo;
     private final SearchParamRepo searchParamRepo;
+    private final PredefinedSearchParamRepo predefinedSearchParamRepo;
+    private final OfferRepo offerRepo;
+    private final PredefinedValueRepo predefinedValueRepo;
 
     @Autowired
     public DatabaseLoader(
             CategoryRepo categoryRepo,
             SearchParamRepo searchParamRepo,
+            PredefinedSearchParamRepo predefinedSearchParamRepo,
+            OfferRepo offerRepo,
+            PredefinedValueRepo predefinedValueRepo,
             UserRepo userRepo) {
 
         this.categoryRepo = categoryRepo;
         this.userRepo = userRepo;
         this.searchParamRepo = searchParamRepo;
+        this.predefinedSearchParamRepo = predefinedSearchParamRepo;
+        this.offerRepo = offerRepo;
+        this.predefinedValueRepo = predefinedValueRepo;
     }
 
     @Override
     public void run(String... strings) throws Exception {
 
 
-        SearchParameterE parameterEprice = searchParamRepo.save(new SearchParameterE("Цена", null));
+        SearchParameterE parameterEprice = searchParamRepo.save(new SearchParameterE("Цена"));
 
-        SearchParameterE parameterE1 = searchParamRepo.save(new SearchParameterE("Кубатура изкопана земна маса/ ден", null));
-        SearchParameterE parameterE2 = searchParamRepo.save(new SearchParameterE("Кубатура на коша", null));
+        SearchParameterE parameterE1 = searchParamRepo.save(new SearchParameterE("Кубатура изкопана земна маса/ ден"));
+        SearchParameterE parameterE2 = searchParamRepo.save(new SearchParameterE("Кубатура на коша"));
 
-        SearchParameterE parameterE3 = searchParamRepo.save(new SearchParameterE("Товароподемност", null));
-        SearchParameterE parameterE4 = searchParamRepo.save(new SearchParameterE("Дължина на стрелата", null));
-        SearchParameterE parameterE5 = searchParamRepo.save(new SearchParameterE("Работен периметър", null));
+        SearchParameterE parameterE3 = searchParamRepo.save(new SearchParameterE("Товароподемност"));
+        SearchParameterE parameterE4 = searchParamRepo.save(new SearchParameterE("Дължина на стрелата"));
+        SearchParameterE parameterE5 = searchParamRepo.save(new SearchParameterE("Работен периметър"));
 
-        SearchParameterE parameter6 = searchParamRepo.save(new SearchParameterE("Вид плочки", Arrays.asList(new PredefinedValuesE("Гранитогрес"),
-                new PredefinedValuesE("Фаянс"),
-                new PredefinedValuesE("Теракот"))));
-        SearchParameterE parameter7 = searchParamRepo.save(new SearchParameterE("Квадратура на ден", null));
+        SearchParameterForPredefinedValuesE parameter6 = predefinedSearchParamRepo.save(new SearchParameterForPredefinedValuesE("Вид плочки",
+                Arrays.asList(new PredefinedValuesE("Гранитогрес"), new PredefinedValuesE("Фаянс"), new PredefinedValuesE("Теракот"))));
+        SearchParameterE parameter7 = searchParamRepo.save(new SearchParameterE("Квадратура на ден"));
 
-        CategoryЕ zemekopni_1_1 = new CategoryЕ("Верижни багери", null, null, CategoryЕ.TYPE_MACHINES);
-        CategoryЕ zemekopni_1_2 = new CategoryЕ("Колесни багери", null, null, CategoryЕ.TYPE_MACHINES);
+        PredefinedValuesE adres1 = new PredefinedValuesE("София");
+        PredefinedValuesE adres2 = new PredefinedValuesE("Бургас");
+        PredefinedValuesE adres3 = new PredefinedValuesE("Пловдив");
+        PredefinedValuesE adres4 = new PredefinedValuesE("Монтана");
+        PredefinedValuesE adres5 = new PredefinedValuesE("Варна");
+        PredefinedValuesE adres6 = new PredefinedValuesE("Велико Търново");
 
-        List<CategoryЕ> zemekopniList_1 = Arrays.asList(zemekopni_1_1, zemekopni_1_2);
-
-        CategoryЕ excavators = new CategoryЕ("Багври", zemekopniList_1, null, CategoryЕ.TYPE_MACHINES);
-        CategoryЕ zemekopni_2 = new CategoryЕ("Челни товарачи", null, null, CategoryЕ.TYPE_MACHINES);
-        CategoryЕ zemekopni_3 = new CategoryЕ("Сондиращи машини", null, null, CategoryЕ.TYPE_MACHINES);
-        CategoryЕ zemekopni_4 = new CategoryЕ("Челни товарачи", null, null, CategoryЕ.TYPE_MACHINES);
+        SearchParameterForPredefinedValuesE parameterAdres = predefinedSearchParamRepo.save(new SearchParameterForPredefinedValuesE("Адрес",
+                Arrays.asList(adres1, adres2, adres3, adres4, adres5, adres6)));
 
 
-        List<CategoryЕ> zemekopniList = Arrays.asList(excavators, zemekopni_2, zemekopni_3, zemekopni_4);
-        CategoryЕ zemekopni = new CategoryЕ("Земекопни Машини", zemekopniList,
+        CategoryE zemekopni_1_1 = new CategoryE("Верижни багери", null, null, null, null);
+        CategoryE zemekopni_1_2 = new CategoryE("Колесни багери", null, null, null, null);
+
+        List<CategoryE> zemekopniList_1 = Arrays.asList(zemekopni_1_1, zemekopni_1_2);
+
+        CategoryE excavators = new CategoryE("Багври", zemekopniList_1, null, null, null);
+        CategoryE zemekopni_2 = new CategoryE("Челни товарачи", null, null, null, null);
+        CategoryE zemekopni_3 = new CategoryE("Сондиращи машини", null, null, null, null);
+        CategoryE zemekopni_4 = new CategoryE("Челни товарачи", null, null, null, null);
+
+
+        List<CategoryE> zemekopniList = Arrays.asList(excavators, zemekopni_2, zemekopni_3, zemekopni_4);
+        CategoryE zemekopni = new CategoryE("Земекопни Машини", zemekopniList,
                 Arrays.asList(searchParamRepo.findById(parameterE1.getId()), searchParamRepo.findById(parameterE2.getId())),
-                CategoryЕ.TYPE_MACHINES);
-        CategoryЕ transportni = new CategoryЕ("Транспортни", null, null, CategoryЕ.TYPE_MACHINES);
-        CategoryЕ boqdisvane = new CategoryЕ("За боядисване", null, null, CategoryЕ.TYPE_MACHINES);
-        CategoryЕ concreetlaying = new CategoryЕ("Полагане На бетон", null, null, CategoryЕ.TYPE_MACHINES);
-        CategoryЕ cranes = new CategoryЕ("Кранове", null,
+                null, null);
+        CategoryE transportni = new CategoryE("Транспортни", null, null, null, null);
+        CategoryE boqdisvane = new CategoryE("За боядисване", null, null, null, null);
+        CategoryE concreetlaying = new CategoryE("Полагане На бетон", null, null, null, null);
+        CategoryE cranes = new CategoryE("Кранове", null,
                 Arrays.asList(searchParamRepo.findById(parameterE3.getId()), searchParamRepo.findById(parameterE4.getId()),
-                        searchParamRepo.findById(parameterE5.getId())), CategoryЕ.TYPE_MACHINES);
-        CategoryЕ vik = new CategoryЕ("ВиК", null, null, CategoryЕ.TYPE_MACHINES);
-        List<CategoryЕ> subcategoriesList = Arrays.asList(zemekopni, transportni, boqdisvane, concreetlaying, cranes, vik);
-        CategoryЕ machinesRoot = categoryRepo.save(new CategoryЕ("Всички",
-//                null,
+                        searchParamRepo.findById(parameterE5.getId())), null, null);
+        CategoryE vik = new CategoryE("ВиК", null, null, null, null);
+        List<CategoryE> subcategoriesList = Arrays.asList(zemekopni, transportni, boqdisvane, concreetlaying, cranes, vik);
+        CategoryE machinesRoot = categoryRepo.save(new CategoryE("Всички",
                 subcategoriesList,
                 Arrays.asList(searchParamRepo.findById(parameterEprice.getId())),
-                CategoryЕ.TYPE_MACHINES));
+                CategoryE.TYPE_MACHINES,
+                Arrays.asList(predefinedSearchParamRepo.findById(parameterAdres.getId()))));
 
 
         //type requesting projects
 
-        CategoryЕ plochki = new CategoryЕ("Лепене на плочки", null,
-                Arrays.asList(searchParamRepo.findById(parameter6.getId()), searchParamRepo.findById(parameter7.getId())),
-                CategoryЕ.TYPE_SERVICES);
-        CategoryЕ painting = new CategoryЕ("Боядисване", null, null, CategoryЕ.TYPE_SERVICES);
-        CategoryЕ spaklovki = new CategoryЕ("Шпакловки", null, null, CategoryЕ.TYPE_SERVICES);
-        CategoryЕ wallpapers = new CategoryЕ("Лепене на тапети", null, null, CategoryЕ.TYPE_SERVICES);
-        CategoryЕ wholeFinishingWorks = new CategoryЕ("Цялостни довършителни работи", null, null, CategoryЕ.TYPE_SERVICES);
+        CategoryE plochki = new CategoryE("Лепене на плочки", null, null, null, null);
+        CategoryE painting = new CategoryE("Боядисване", null, null, null, null);
+        CategoryE spaklovki = new CategoryE("Шпакловки", null, null, null, null);
+        CategoryE wallpapers = new CategoryE("Лепене на тапети", null, null, null, null);
+        CategoryE wholeFinishingWorks = new CategoryE("Цялостни довършителни работи", null, null, null, null);
 
-        List<CategoryЕ> projectCategories2 = new ArrayList<>();
-        projectCategories2.add(new CategoryЕ("Поставяне на контакти", null, null, CategoryЕ.TYPE_SERVICES));
-        projectCategories2.add(new CategoryЕ("Полагане на кабели", null, null, CategoryЕ.TYPE_SERVICES));
-        projectCategories2.add(new CategoryЕ("Поставяне на осветителни тела", null, null, CategoryЕ.TYPE_SERVICES));
+        List<CategoryE> projectCategories2 = new ArrayList<>();
+        projectCategories2.add(new CategoryE("Поставяне на контакти", null, null, null, null));
+        projectCategories2.add(new CategoryE("Полагане на кабели", null, null, null, null));
+        projectCategories2.add(new CategoryE("Поставяне на осветителни тела", null, null, null, null));
 
 
-        CategoryЕ finishingWorks = new CategoryЕ("Довършителни работи", Arrays.asList(plochki, painting, spaklovki, wallpapers, wholeFinishingWorks), null, CategoryЕ.TYPE_SERVICES);
-        CategoryЕ roofServices = new CategoryЕ("Ремонт на покриви", null, null, CategoryЕ.TYPE_SERVICES);
-        CategoryЕ rawBuilding = new CategoryЕ("Груб Строеж", null, null, CategoryЕ.TYPE_SERVICES);
-        CategoryЕ vikServices = new CategoryЕ("ВиК", null, null, CategoryЕ.TYPE_SERVICES);
-        CategoryЕ el = new CategoryЕ("Електро", projectCategories2, null, CategoryЕ.TYPE_SERVICES);
-        CategoryЕ transportServices = new CategoryЕ("Транспортни", null, null, CategoryЕ.TYPE_SERVICES);
-        CategoryЕ handTransport = new CategoryЕ("Хамалски", null, null, CategoryЕ.TYPE_SERVICES);
-        CategoryЕ excavatings = new CategoryЕ("Изкопи", null, Arrays.asList(searchParamRepo.findById(parameterE1.getId())), CategoryЕ.TYPE_SERVICES);
-        CategoryЕ projectsRoot = categoryRepo.save(new CategoryЕ("All",
+        CategoryE finishingWorks = new CategoryE("Довършителни работи", Arrays.asList(plochki, painting, spaklovki, wallpapers, wholeFinishingWorks), null, null, null);
+        CategoryE roofServices = new CategoryE("Ремонт на покриви", null, null, null, null);
+        CategoryE rawBuilding = new CategoryE("Груб Строеж", null, null, null, null);
+        CategoryE vikServices = new CategoryE("ВиК", null, null, null, null);
+        CategoryE el = new CategoryE("Електро", projectCategories2, null, null, null);
+        CategoryE transportServices = new CategoryE("Транспортни", null, null, null, null);
+        CategoryE handTransport = new CategoryE("Хамалски", null, null, null, null);
+        CategoryE excavatings = new CategoryE("Изкопи", null, Arrays.asList(searchParamRepo.findById(parameterE1.getId())), null, null);
+        CategoryE servicesRoot = categoryRepo.save(new CategoryE("Всички",
                 Arrays.asList(finishingWorks, roofServices, rawBuilding, vikServices, el, transportServices, handTransport, excavatings),
-                Arrays.asList(searchParamRepo.findById(parameterEprice.getId())), CategoryЕ.TYPE_SERVICES));
-
-
+                Arrays.asList(searchParamRepo.findById(parameterEprice.getId())), CategoryE.TYPE_SERVICES,
+                Arrays.asList(predefinedSearchParamRepo.findById(parameterAdres.getId()))));
 
 
         UserE user1 = this.userRepo.save(new UserE("ivan", "1234", "Ivan", "Kolev", "ikolev@abv.bg", null));
@@ -130,14 +145,27 @@ public class DatabaseLoader implements CommandLineRunner {
 
 
         OfferE offer1_1 = new OfferE("Bager", "Bagera e golqm i moshten i e kato nov", "0988933188", null, null, categoryRepo.findById(excavators.getId()).get(),
-                Arrays.asList(new OfferParamE(searchParamRepo.findById(parameterE1.getId()), null, 100), new OfferParamE(searchParamRepo.findById(parameterE2.getId()), null, 5)));
-        OfferE offer1_2 = new OfferE("BetonPompa", "Betonpompata e zapazena i raboti dobre", "0888314522", null, null, categoryRepo.findById(concreetlaying.getId()).get(), null);
+                Arrays.asList(new OfferParamE(searchParamRepo.findById(parameterE1.getId()), 100), new OfferParamE(searchParamRepo.findById(parameterE2.getId()), 5)),
+                Arrays.asList(new PredefinedOfferParamE(predefinedSearchParamRepo.findById(parameterAdres.getId()),
+                        predefinedValueRepo.findById(adres1.getId()))));
+        OfferE offer1_2 = new OfferE("BetonPompa", "Betonpompata e zapazena i raboti dobre", "0888314522", null, null, categoryRepo.findById(concreetlaying.getId()).get(), null,
+                Arrays.asList(new PredefinedOfferParamE(predefinedSearchParamRepo.findById(parameterAdres.getId()),
+                        predefinedValueRepo.findById(adres5.getId()))));
 
-        OfferE offer1_3 = new OfferE("Boqdisvam steni", "Boqdisvam s lateks interiorni steni visoko kachestvo", "0883410072", null, null, categoryRepo.findById(painting.getId()).get(), null);
-        OfferE offer2_1 = new OfferE("Remont na pokrivi", "Bagera e golqm i moshten i e kato nov", "0878191834", null, null, categoryRepo.findById(roofServices.getId()).get(), null);
-        OfferE offer2_2 = new OfferE("Remont na uluci", "Bagera e golqm i moshten i e kato nov", "0878355108", null, null, categoryRepo.findById(roofServices.getId()).get(), null);
+        OfferE offer1_3 = new OfferE("Boqdisvam steni", "Boqdisvam s lateks interiorni steni visoko kachestvo", "0883410072", null, null, categoryRepo.findById(painting.getId()).get(), null,
+                Arrays.asList(new PredefinedOfferParamE(predefinedSearchParamRepo.findById(parameterAdres.getId()),
+                        predefinedValueRepo.findById(adres2.getId()))));
+        OfferE offer2_1 = new OfferE("Remont na pokrivi", "Pokrivi smenqm keremidi i pravq izolacii", "0878191834", null, null, categoryRepo.findById(roofServices.getId()).get(), null,
+                Arrays.asList(new PredefinedOfferParamE(predefinedSearchParamRepo.findById(parameterAdres.getId()),
+                        predefinedValueRepo.findById(adres2.getId()))));
+        OfferE offer2_2 = new OfferE("Remont na uluci", "Smenqm s PVC i medni uluci", "0878355108", null, null, categoryRepo.findById(roofServices.getId()).get(), null,
+                Arrays.asList(new PredefinedOfferParamE(predefinedSearchParamRepo.findById(parameterAdres.getId()),
+                        predefinedValueRepo.findById(adres2.getId()))));
         OfferE offer2_3 = new OfferE("Izvyrshvam izkopni deinosti", "Spravqm se dobre na nai niskite ceni", "0898750100", null, null, categoryRepo.findById(excavatings.getId()).get(),
-                Arrays.asList(new OfferParamE(parameterE1, null, 100), new OfferParamE(searchParamRepo.findById(parameterEprice.getId()), null, 200)));
+                Arrays.asList(new OfferParamE(searchParamRepo.findById(parameterE1.getId()), 100),
+                        new OfferParamE(searchParamRepo.findById(parameterEprice.getId()), 200)),
+                Arrays.asList(new PredefinedOfferParamE(predefinedSearchParamRepo.findById(parameterAdres.getId()),
+                        predefinedValueRepo.findById(adres1.getId()))));
 
         ConversationE conversationE1_1_2 = new ConversationE(user2);
         MessageE messageE1_1_2_0 = new MessageE("Zdraveite, \n svoboden li e bagera", LocalDateTime.of(2019, 8, 01, 12, 00), true, true);
@@ -170,5 +198,27 @@ public class DatabaseLoader implements CommandLineRunner {
         this.userRepo.saveAndFlush(user1);
         this.userRepo.save(user2);
 
+
+//        runTestes();
+    }
+
+
+    private void runTestes() {
+
+        String searchInput = "";
+        Long cat = categoryRepo.findByName("Изкопи").getId();
+        Map<Long, Integer> mins = new HashMap<>();
+        Map<Long, Integer> maxs = new HashMap<>();
+
+        mins.put(1L, 1222);
+//        maxs.put(1L, 100);
+
+
+        OfferSearchSpecification specification = new OfferSearchSpecification(searchInput, cat, mins, maxs);
+
+        List<OfferE> offers = offerRepo.findAll(specification);
+
+
+        offers.forEach(a -> System.out.println(a.getTitle()));
     }
 }
