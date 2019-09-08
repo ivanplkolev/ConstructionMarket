@@ -33,6 +33,8 @@ public class OfferE {
     @OneToMany(cascade = CascadeType.ALL)
     private List<EventE> eventEList;
 
+    private boolean deleted = false;
+
     @ManyToOne
     private CategoryE categoryE;//todo - make it list
 

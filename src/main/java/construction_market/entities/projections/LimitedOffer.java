@@ -16,4 +16,6 @@ public interface LimitedOffer {
     String getPhoneNumber();
 
     String[] getImages();
+
+    boolean getDeleted();
 }
