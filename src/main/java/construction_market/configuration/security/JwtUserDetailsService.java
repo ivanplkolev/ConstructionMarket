@@ -16,14 +16,14 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class JwtInMemoryUserDetailsService implements UserDetailsService {
+public class JwtUserDetailsService implements UserDetailsService {
 
 
 
     private final UserRepo repository;
 
     @Autowired
-    public JwtInMemoryUserDetailsService(UserRepo repository) {
+    public JwtUserDetailsService(UserRepo repository) {
         this.repository = repository;
     }
 
