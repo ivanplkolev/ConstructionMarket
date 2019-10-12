@@ -18,13 +18,15 @@ public class EventE {
     @JsonIgnore
     private Long version;
 
-    private LocalDate date;
+    private String title;
+    private LocalDate fromDate;
+    private LocalDate toDate;
 
-//    @ManyToOne
-//    private
-//    OfferE parent;
+    @ManyToOne
+    private
+    OfferE parent;
 
-    @OneToOne(cascade=CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
     private AgreementE agreementE;
 
     @ManyToOne
@@ -33,8 +35,11 @@ public class EventE {
     private EventE() {
     }
 
-    public EventE(LocalDate date, UserE client, AgreementE agreementE) {
-        this.date = date;
+    public EventE(OfferE parent, LocalDate fromDate, UserE client, AgreementE agreementE, LocalDate todate, String title) {
+        this.title = title;
+        this.parent = parent;
+        this.fromDate = fromDate;
+        this.toDate = todate;
         this.client = client;
         this.agreementE = agreementE;
     }

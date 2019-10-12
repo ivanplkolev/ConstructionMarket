@@ -1,5 +1,6 @@
 package construction_market.configuration;
 
+import construction_market.entities.OfferE;
 import construction_market.entities.categories.CategoryE;
 import construction_market.entities.categories.predefined.PredefinedValuesE;
 import construction_market.entities.categories.predefined.SearchParameterForPredefinedValuesE;
@@ -16,5 +17,6 @@ public class RepositoryConfig extends RepositoryRestConfigurerAdapter {
         config.exposeIdsFor(SearchParameterE.class);
         config.exposeIdsFor(SearchParameterForPredefinedValuesE.class);
         config.exposeIdsFor(PredefinedValuesE.class);
+        config.exposeIdsFor(OfferE.class);
     }
 }

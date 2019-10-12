@@ -2,6 +2,7 @@ package construction_market.repositories.event_handlers;
 
 import construction_market.entities.OfferE;
 import construction_market.entities.UserE;
+import construction_market.repositories.EventRepo;
 import construction_market.repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.core.annotation.HandleAfterCreate;
@@ -11,14 +12,18 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RepositoryEventHandler(OfferE.class)
-public class OrderEventHandler {
+public class OfferEventHandler {
 
     @Autowired
     private UserRepo userRepo;
 
     @Autowired
-    public OrderEventHandler(UserRepo userRepo) {
+    private EventRepo eventRepo;
+
+    @Autowired
+    public OfferEventHandler(UserRepo userRepo, EventRepo e) {
         this.userRepo = userRepo;
+        this.eventRepo=e;//todo debug only -- remove it when done
     }
 
     @HandleAfterCreate

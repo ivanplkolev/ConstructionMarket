@@ -10,6 +10,14 @@ import java.util.List;
 @Entity
 public class AgreementE {
 
+    public static final int STATUS_NEW = 1;
+    public static final int STATUS_ACCEPTED = 2;
+    public static final int STATUS_REJECTED = 3;
+    public static final int STATUS_COMPLETED = 4;
+    public static final int STATUS_CANCELED = 5;
+    public static final int STATUS_DISPUTE = 6;
+    public static final int STATUS_DISPUTE_CONFIRMED = 7;
+
     @Id
     @GeneratedValue
     private Long id;
@@ -28,18 +36,18 @@ public class AgreementE {
     private List<AgreementDetailE> agreementDetailEList;
 //    private List<Float> subPrices= new ArrayList<>();
 
-    private boolean agreed;
+    private int status = STATUS_NEW;
 
 
     private AgreementE() {
     }
 
-    public AgreementE(boolean agreed,
+    public AgreementE(int status,
                       List<AgreementDetailE> agreementDetailEList,
                       float totalPrice
     ) {
 //        this.parent = parent;
-        this.agreed = agreed;
+        this.status = status;
         this.agreementDetailEList = agreementDetailEList;
         this.totalPrice = totalPrice;
     }

@@ -28,6 +28,7 @@ public class DatabaseLoader implements CommandLineRunner {
     private final PredefinedSearchParamRepo predefinedSearchParamRepo;
     private final OfferRepo offerRepo;
     private final PredefinedValueRepo predefinedValueRepo;
+    private final EventRepo eventRepo;
 
     @Autowired
     public DatabaseLoader(
@@ -36,7 +37,7 @@ public class DatabaseLoader implements CommandLineRunner {
             PredefinedSearchParamRepo predefinedSearchParamRepo,
             OfferRepo offerRepo,
             PredefinedValueRepo predefinedValueRepo,
-            UserRepo userRepo) {
+            UserRepo userRepo, EventRepo eventRepo) {
 
         this.categoryRepo = categoryRepo;
         this.userRepo = userRepo;
@@ -44,6 +45,7 @@ public class DatabaseLoader implements CommandLineRunner {
         this.predefinedSearchParamRepo = predefinedSearchParamRepo;
         this.offerRepo = offerRepo;
         this.predefinedValueRepo = predefinedValueRepo;
+        this.eventRepo = eventRepo;
     }
 
     @Override
@@ -176,27 +178,28 @@ public class DatabaseLoader implements CommandLineRunner {
 
         offer1_1.setConversationEList(conversationEList1_1);
 
-        List<OfferE> offerEList1 = Arrays.asList(offer1_1, offer1_2, offer1_3);
+
+        offerRepo.save(offer1_1);
+        List<OfferE> offerEList1 = Arrays.asList(offerRepo.findById(offer1_1.getId()), offer1_2, offer1_3);
         user1.setOfferEList(offerEList1);
 
-        List<OfferE> offerEList2 = Arrays.asList(offer2_1, offer2_2, offer2_3);
+        offerRepo.save(offer2_1);
+        List<OfferE> offerEList2 = Arrays.asList(offerRepo.findById(offer2_1.getId()), offer2_2, offer2_3);
         user2.setOfferEList(offerEList2);
 
-
-        EventE event1_1_1 = new EventE(LocalDate.of(2019, 9, 1), user2, null);
-
+        this.userRepo.saveAndFlush(user1);
+        this.userRepo.save(user2);
 
         AgreementDetailE agreementDetailE1_1_2_1 = new AgreementDetailE("i 30 kvadrata", 10);
         AgreementDetailE agreementDetailE1_1_2_2 = new AgreementDetailE("i 40 kubika oshte", 50);
         List<AgreementDetailE> agreementDetailEList1_1_2 = Arrays.asList(agreementDetailE1_1_2_1, agreementDetailE1_1_2_2);
-        AgreementE agreementE1_1_2 = new AgreementE(false, agreementDetailEList1_1_2, 500);
-        event1_1_1.setAgreementE(agreementE1_1_2);
+        AgreementE agreementE1_1_2 = new AgreementE(AgreementE.STATUS_NEW, agreementDetailEList1_1_2, 500);
 
-        offer1_1.setEventEList(Arrays.asList(event1_1_1));
+        this.eventRepo.save(new EventE(offerRepo.findById(offer1_1.getId()),
+                LocalDate.of(2019, 10, 16), user2, agreementE1_1_2, LocalDate.of(2019, 10, 17), ""));
 
-
-        this.userRepo.saveAndFlush(user1);
-        this.userRepo.save(user2);
+        this.eventRepo.save(new EventE(offerRepo.findById(offer2_1.getId()),
+                LocalDate.of(2019, 10, 15), user1, null, LocalDate.of(2019, 10, 30), ""));
 
 
 //        runTestes();
