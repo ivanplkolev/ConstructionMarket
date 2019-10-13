@@ -1,10 +1,7 @@
 package construction_market.controllers;
 
 import construction_market.entities.*;
-import construction_market.repositories.AgreementRepo;
-import construction_market.repositories.EventRepo;
-import construction_market.repositories.OfferRepo;
-import construction_market.repositories.UserRepo;
+import construction_market.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -34,6 +31,9 @@ public class OffersController {
 
     @Autowired
     private UserRepo userRepo;
+
+    @Autowired
+    private FeedBackRepo feedBackRepo;
 
 
     @RequestMapping(method = RequestMethod.GET, value = "/api/offersearch")
@@ -71,7 +71,7 @@ public class OffersController {
         event.setClient(user);
         eventRepo.save(event);
 
-        if(event.getParent().getEventEList() == null){
+        if (event.getParent().getEventEList() == null) {
             event.getParent().setEventEList(new ArrayList<>());
         }
 
@@ -106,9 +106,19 @@ public class OffersController {
                 .map(AgreementDetailE::getPrice)
                 .reduce(0f, (a, b) -> a + b));
 
-        agreementRepo.save(agreementE);
+        agreementE = agreementRepo.save(agreementE);
 
         return agreementE;
+    }
+
+    @PostMapping("/api/saveHelper/feedBackEs")
+    FeedBackE saveFeedBack(@RequestBody FeedBackE feedBack) {
+
+        feedBack.setParent(agreementRepo.findById(feedBack.getParent().getId()));
+
+        feedBack = feedBackRepo.save(feedBack);
+
+        return feedBack;
     }
 
 

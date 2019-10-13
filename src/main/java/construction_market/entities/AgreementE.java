@@ -17,6 +17,7 @@ public class AgreementE {
     public static final int STATUS_CANCELED = 5;
     public static final int STATUS_DISPUTE = 6;
     public static final int STATUS_DISPUTE_CONFIRMED = 7;
+    public static final int STATUS_REVIEWED = 8;
 
     @Id
     @GeneratedValue
