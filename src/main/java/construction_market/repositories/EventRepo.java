@@ -13,9 +13,11 @@ import java.util.List;
 @RepositoryRestResource(exported = true)
 public interface EventRepo extends Repository<EventE, Long> {
 
-    EventE findByTitle(@Param("title")String title);
+    EventE findByTitle(@Param("title") String title);
 
     List<EventE> findByClient(UserE client);
+
+    EventE findById(Long id);
 
     //    @Override
 //    @PreAuthorize("#offer?.manager == null or #offer?.manager?.name == authentication?.name")

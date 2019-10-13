@@ -1,7 +1,6 @@
 package construction_market.entities.projections;
 
 
-import construction_market.entities.EventE;
 import construction_market.entities.OfferE;
 import construction_market.entities.UserE;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,7 +16,10 @@ public interface UserWithHisOffers {
     OfferE getOfferEList();
 
     @Value("#{@eventRepo.findByClient(target)}")
-    List<EventE> getEventsList();
+    List<EventWithAgreements> getEventsList();
+
+//    @Value("#{@agreementRepo.findByClient(target)}")
+//    List<EventWithAgreements> getAgreementsList();
 
     String getEmail();
     String getLastName();

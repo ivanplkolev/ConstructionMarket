@@ -32,6 +32,9 @@ public class AgreementE {
 
     private float totalPrice;
 
+    @OneToOne
+    private EventE parent;
+
     @OneToMany(cascade = CascadeType.ALL)
     private List<AgreementDetailE> agreementDetailEList;
 //    private List<Float> subPrices= new ArrayList<>();
@@ -44,12 +47,12 @@ public class AgreementE {
 
     public AgreementE(int status,
                       List<AgreementDetailE> agreementDetailEList,
-                      float totalPrice
-    ) {
-//        this.parent = parent;
+                      float totalPrice,
+                      EventE parent) {
         this.status = status;
         this.agreementDetailEList = agreementDetailEList;
         this.totalPrice = totalPrice;
+        this.parent = parent;
     }
 
 

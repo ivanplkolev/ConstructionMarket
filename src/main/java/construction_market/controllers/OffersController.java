@@ -1,8 +1,7 @@
 package construction_market.controllers;
 
-import construction_market.entities.EventE;
-import construction_market.entities.OfferE;
-import construction_market.entities.UserE;
+import construction_market.entities.*;
+import construction_market.repositories.AgreementRepo;
 import construction_market.repositories.EventRepo;
 import construction_market.repositories.OfferRepo;
 import construction_market.repositories.UserRepo;
@@ -11,6 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,7 +29,8 @@ public class OffersController {
     @Autowired
     private EventRepo eventRepo;
 
-
+    @Autowired
+    private AgreementRepo agreementRepo;
 
     @Autowired
     private UserRepo userRepo;
@@ -62,16 +63,26 @@ public class OffersController {
 
     @PostMapping("/api/saveHelper/eventEs")
     EventE saveEventE(@RequestBody EventE event) {
-        offerRepo.save(event.getParent());
+//        offerRepo.save(event.getParent());//todo -- make it like in the agreement --- it is correct !!!
+        event.setParent(offerRepo.findById(event.getParent().getId()));
+
         String name = SecurityContextHolder.getContext().getAuthentication().getName();
         UserE user = this.userRepo.findByUserName(name);
         event.setClient(user);
         eventRepo.save(event);
 
+        if(event.getParent().getEventEList() == null){
+            event.getParent().setEventEList(new ArrayList<>());
+        }
+
+        event.getParent().getEventEList().add(event);
+
+        offerRepo.save(event.getParent());
+
         return event;
     }
 
-    @PostMapping("/api/savehelper/offerEs")
+    @PostMapping("/api/saveHelper/offerEs")
     OfferE saveOfferE(@RequestBody OfferE offer) {
         offerRepo.save(offer);
 
@@ -82,6 +93,22 @@ public class OffersController {
         userRepo.save(user);
 
         return offer;
+    }
+
+    @PostMapping("/api/saveHelper/agreementEs")
+    AgreementE saveAgreement(@RequestBody AgreementE agreementE) {
+
+        agreementE.setParent(eventRepo.findById(agreementE.getParent().getId()));
+
+        agreementE.setTotalPrice(agreementE
+                .getAgreementDetailEList()
+                .stream()
+                .map(AgreementDetailE::getPrice)
+                .reduce(0f, (a, b) -> a + b));
+
+        agreementRepo.save(agreementE);
+
+        return agreementE;
     }
 
 

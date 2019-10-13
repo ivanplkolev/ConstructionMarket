@@ -26,8 +26,8 @@ public class EventE {
     private
     OfferE parent;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    private AgreementE agreementE;
+//    @OneToOne(cascade = CascadeType.ALL)
+//    private AgreementE agreementE;
 
     @ManyToOne
     private UserE client;
@@ -35,13 +35,13 @@ public class EventE {
     private EventE() {
     }
 
-    public EventE(OfferE parent, LocalDate fromDate, UserE client, AgreementE agreementE, LocalDate todate, String title) {
+    public EventE(OfferE parent, LocalDate fromDate, UserE client, LocalDate todate, String title) {
         this.title = title;
         this.parent = parent;
         this.fromDate = fromDate;
         this.toDate = todate;
         this.client = client;
-        this.agreementE = agreementE;
+//        this.agreementE = agreementE;
     }
 
 }

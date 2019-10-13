@@ -29,6 +29,7 @@ public class DatabaseLoader implements CommandLineRunner {
     private final OfferRepo offerRepo;
     private final PredefinedValueRepo predefinedValueRepo;
     private final EventRepo eventRepo;
+    private final AgreementRepo agreementRepo;
 
     @Autowired
     public DatabaseLoader(
@@ -37,6 +38,7 @@ public class DatabaseLoader implements CommandLineRunner {
             PredefinedSearchParamRepo predefinedSearchParamRepo,
             OfferRepo offerRepo,
             PredefinedValueRepo predefinedValueRepo,
+            AgreementRepo agreementRepo,
             UserRepo userRepo, EventRepo eventRepo) {
 
         this.categoryRepo = categoryRepo;
@@ -46,6 +48,7 @@ public class DatabaseLoader implements CommandLineRunner {
         this.offerRepo = offerRepo;
         this.predefinedValueRepo = predefinedValueRepo;
         this.eventRepo = eventRepo;
+        this.agreementRepo = agreementRepo;
     }
 
     @Override
@@ -190,16 +193,20 @@ public class DatabaseLoader implements CommandLineRunner {
         this.userRepo.saveAndFlush(user1);
         this.userRepo.save(user2);
 
+
+        this.eventRepo.save(new EventE(offerRepo.findById(offer1_1.getId()),
+                LocalDate.of(2019, 10, 16), user2, LocalDate.of(2019, 10, 17), ""));
+
+        EventE event_1 = this.eventRepo.save(new EventE(offerRepo.findById(offer2_1.getId()),
+                LocalDate.of(2019, 10, 15), user1, LocalDate.of(2019, 10, 30), ""));
+
         AgreementDetailE agreementDetailE1_1_2_1 = new AgreementDetailE("i 30 kvadrata", 10);
         AgreementDetailE agreementDetailE1_1_2_2 = new AgreementDetailE("i 40 kubika oshte", 50);
         List<AgreementDetailE> agreementDetailEList1_1_2 = Arrays.asList(agreementDetailE1_1_2_1, agreementDetailE1_1_2_2);
-        AgreementE agreementE1_1_2 = new AgreementE(AgreementE.STATUS_NEW, agreementDetailEList1_1_2, 500);
+        AgreementE agreementE1_1_2 = new AgreementE(AgreementE.STATUS_NEW, agreementDetailEList1_1_2, 500,
+                eventRepo.findById(event_1.getId()));
 
-        this.eventRepo.save(new EventE(offerRepo.findById(offer1_1.getId()),
-                LocalDate.of(2019, 10, 16), user2, agreementE1_1_2, LocalDate.of(2019, 10, 17), ""));
-
-        this.eventRepo.save(new EventE(offerRepo.findById(offer2_1.getId()),
-                LocalDate.of(2019, 10, 15), user1, null, LocalDate.of(2019, 10, 30), ""));
+        agreementRepo.save(agreementE1_1_2);
 
 
 //        runTestes();
