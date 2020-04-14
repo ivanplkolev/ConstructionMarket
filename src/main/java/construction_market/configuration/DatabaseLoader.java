@@ -187,27 +187,40 @@ public class DatabaseLoader implements CommandLineRunner {
         user1.setOfferEList(offerEList1);
 
         offerRepo.save(offer2_1);
-        List<OfferE> offerEList2 = Arrays.asList(offerRepo.findById(offer2_1.getId()), offer2_2, offer2_3);
+        offerRepo.save(offer2_2);
+        List<OfferE> offerEList2 = Arrays.asList(offerRepo.findById(offer2_1.getId()), offerRepo.findById(offer2_2.getId()), offer2_3);
         user2.setOfferEList(offerEList2);
 
         this.userRepo.saveAndFlush(user1);
         this.userRepo.save(user2);
 
 
-        this.eventRepo.save(new EventE(offerRepo.findById(offer1_1.getId()),
-                LocalDate.of(2019, 10, 16), user2, LocalDate.of(2019, 10, 17), ""));
+        EventE event_1 = this.eventRepo.save(new EventE(offerRepo.findById(offer1_1.getId()),
+                LocalDate.of(2020, 2, 17), user2, LocalDate.of(2020, 2, 22), "Izkop na kanala"));
 
-        EventE event_1 = this.eventRepo.save(new EventE(offerRepo.findById(offer2_1.getId()),
-                LocalDate.of(2019, 10, 15), user1, LocalDate.of(2019, 10, 30), ""));
+        EventE event_2 = this.eventRepo.save(new EventE(offerRepo.findById(offer2_1.getId()),
+                LocalDate.of(2020, 2, 20), user1, LocalDate.of(2020,2, 23), "Remontoirane na pokriva"));
+
+        EventE event_3 = this.eventRepo.save(new EventE(offerRepo.findById(offer2_2.getId()),
+                LocalDate.of(2020, 2, 24), user1, LocalDate.of(2020,2, 28), "Remontoirane na uluka"));
+
+
 
         AgreementDetailE agreementDetailE1_1_2_1 = new AgreementDetailE("i 30 kvadrata", 10);
         AgreementDetailE agreementDetailE1_1_2_2 = new AgreementDetailE("i 40 kubika oshte", 50);
         List<AgreementDetailE> agreementDetailEList1_1_2 = Arrays.asList(agreementDetailE1_1_2_1, agreementDetailE1_1_2_2);
         AgreementE agreementE1_1_2 = new AgreementE(AgreementE.STATUS_NEW, agreementDetailEList1_1_2, 500,
                 eventRepo.findById(event_1.getId()));
-
         agreementRepo.save(agreementE1_1_2);
 
+
+
+        AgreementDetailE agreementDetailE1_2_2_1 = new AgreementDetailE("Поставяне на нови керемиди", 1000);
+        AgreementDetailE agreementDetailE1_2_2_2 = new AgreementDetailE("Премахване на старите керемиди", 50);
+        List<AgreementDetailE> agreementDetailEList2_1_2 = Arrays.asList(agreementDetailE1_2_2_2, agreementDetailE1_2_2_1);
+        AgreementE agreementE2_1_2 = new AgreementE(AgreementE.STATUS_NEW, agreementDetailEList2_1_2, 500,
+                eventRepo.findById(event_1.getId()));
+        agreementRepo.save(agreementE2_1_2);
 
 //        runTestes();
     }

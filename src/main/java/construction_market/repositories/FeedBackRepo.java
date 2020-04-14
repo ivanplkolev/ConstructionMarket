@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 
 @CrossOrigin
 @RepositoryRestResource(exported = true)
-public interface FeedBackRepo extends Repository<AgreementE, Long> {
+public interface FeedBackRepo extends Repository<FeedBackE, Long> {
 
     FeedBackE findById(@Param("id") Long id);
 

@@ -27,10 +27,6 @@ public class AgreementE {
     @JsonIgnore
     private Long version;
 
-//    @ManyToOne
-//    private
-//    CategoryE parent;
-
     private float totalPrice;
 
     @OneToOne

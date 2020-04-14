@@ -3,7 +3,7 @@ package construction_market.configuration.security;
 
 import java.io.Serializable;
 
-public class  JwtTokenRequest implements Serializable {
+public class JwtTokenRequest implements Serializable {
 
     private static final long serialVersionUID = -5616176897013108345L;
 
