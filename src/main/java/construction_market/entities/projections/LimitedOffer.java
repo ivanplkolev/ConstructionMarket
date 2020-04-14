@@ -6,6 +6,10 @@ import org.springframework.data.rest.core.config.Projection;
 
 import java.util.List;
 
+/**
+ * This is projection interface
+ * it is used to represent offer with not all fields
+ */
 @Projection(name = "limitedOffer", types = {OfferE.class})
 public interface LimitedOffer {
 

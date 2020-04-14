@@ -3,6 +3,9 @@ package construction_market.configuration.security;
 
 import java.io.Serializable;
 
+/**
+ * This class represents the response returning the JWT (token)
+ */
 public class JwtTokenResponse implements Serializable {
 
     private static final long serialVersionUID = 8317676219297719109L;

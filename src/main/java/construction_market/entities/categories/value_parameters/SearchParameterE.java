@@ -6,6 +6,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+/**
+ * This is simple entity class
+ * it represents simple search param
+ */
 @Data
 @Entity
 public class SearchParameterE {

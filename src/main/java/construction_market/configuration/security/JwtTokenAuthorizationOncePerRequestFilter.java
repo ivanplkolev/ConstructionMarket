@@ -20,6 +20,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * This is the filter that reads the jwt token from every request`s header
+ */
 @Component
 public class JwtTokenAuthorizationOncePerRequestFilter extends OncePerRequestFilter {
 

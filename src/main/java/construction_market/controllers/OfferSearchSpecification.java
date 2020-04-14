@@ -11,6 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * This is specification class
+ * it is used for seraching offers in the database
+ */
 public class OfferSearchSpecification implements Specification<OfferE> {
 
     private String searchInput;

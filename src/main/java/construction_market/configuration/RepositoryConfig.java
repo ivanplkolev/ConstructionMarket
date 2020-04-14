@@ -11,6 +11,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurerAdapter;
 
+/**
+ * This config class is used to return the id-s for the elements,
+ * they are used for modification in the front end part
+ */
 @Configuration
 public class RepositoryConfig extends RepositoryRestConfigurerAdapter {
     @Override

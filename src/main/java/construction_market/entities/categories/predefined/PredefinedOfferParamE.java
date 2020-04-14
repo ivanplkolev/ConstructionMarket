@@ -7,6 +7,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+/**
+ * This is simple entity class
+ * it represents predefined parameter, it has predefined values,
+ * like enumeration, byt runtime defined
+ */
 @Data
 @Entity
 public class PredefinedOfferParamE {

@@ -9,11 +9,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import javax.persistence.*;
 import java.util.List;
 
-//import lombok.Data;
-//import lombok.ToString;
-//@Data
-//@ToString(exclude = "password")
 
+/**
+ * This is simple entity class
+ * it represents User profile
+ */
 @Data
 @Entity
 public class UserE {

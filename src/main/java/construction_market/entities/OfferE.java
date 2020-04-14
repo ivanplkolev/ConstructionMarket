@@ -9,6 +9,10 @@ import lombok.Data;
 import javax.persistence.*;
 import java.util.List;
 
+/**
+ * This is simple entity class
+ * it represents Offer
+ */
 @Data
 @Entity
 public class OfferE {

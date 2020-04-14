@@ -16,6 +16,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+
+/**
+ * This is an utility class with some utility method helping for the authentication process
+ * and the validation of the JWT after that
+ * it returns the user name from token, also gets the expiration date
+ */
 @Component
 public class JwtTokenUtil implements Serializable {
 

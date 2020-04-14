@@ -1,7 +1,8 @@
 package construction_market.configuration.security;
 
 /**
- * Created by x on 8.9.2019 г..
+ * This is an exception class,
+ * it is thrown when the Authentication is not successful
  */
 public class AuthenticationException extends RuntimeException {
     public AuthenticationException(String message, Throwable cause) {

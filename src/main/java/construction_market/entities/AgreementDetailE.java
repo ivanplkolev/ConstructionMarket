@@ -6,6 +6,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+/**
+ * This is simple entity class
+ * it represents details for the agreement
+ * they are attached to agreement
+ */
 @Data
 @Entity
 public class AgreementDetailE {

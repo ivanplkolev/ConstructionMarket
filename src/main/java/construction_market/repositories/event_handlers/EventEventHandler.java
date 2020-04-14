@@ -14,6 +14,11 @@ import org.springframework.data.rest.core.annotation.RepositoryEventHandler;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
+
+/**
+ * This is Event handler
+ * some of the methods are added for debug purpose
+ */
 @Component
 @RepositoryEventHandler(OfferE.class)
 public class EventEventHandler {

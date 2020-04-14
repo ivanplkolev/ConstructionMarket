@@ -8,9 +8,9 @@ import org.springframework.data.rest.core.config.Projection;
 import java.time.LocalDate;
 
 /**
- * Created by x on 13.10.2019 г..
+ * This is projection interface
+ * it is used to represent events with their agreements if exists
  */
-
 @Projection(name = "eventWithAgreements", types = {EventE.class})
 public interface EventWithAgreements {
 

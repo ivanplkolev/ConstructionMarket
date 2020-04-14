@@ -6,7 +6,10 @@ import org.springframework.data.rest.core.config.Projection;
 
 import java.util.List;
 
-
+/**
+ * This is projection interface
+ * it is used to represent categories with their subcategories like a tree
+ */
 @Projection(name = "categoryProjection", types = {CategoryE.class})
 public interface CategoryProjection {
 

@@ -19,6 +19,10 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 
+/**
+ * This loader class prefills the in memory H2 database with values,
+ * which will be returned, it is for demo purpose and debug for the API
+ */
 @Component
 public class DatabaseLoader implements CommandLineRunner {
 

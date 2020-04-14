@@ -4,9 +4,9 @@ import construction_market.entities.categories.value_parameters.SearchParameterE
 import org.springframework.data.rest.core.config.Projection;
 
 /**
- * Created by x on 17.8.2019 г..
+ * This is projection interface
+ * it is used to represent search param with its id and name
  */
-
 @Projection(name = "searchparamProjection", types = {SearchParameterE.class})
 public interface SearchparamProjection {
 

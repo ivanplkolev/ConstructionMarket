@@ -9,6 +9,11 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.util.List;
 
+/**
+ * This is Spring Data Rest repository
+ * it is crossorigin because the fron end is hosted with another application server
+ * it is exported to serve data to the UI
+ */
 @CrossOrigin
 @RepositoryRestResource(exported = true)
 public interface EventRepo extends Repository<EventE, Long> {

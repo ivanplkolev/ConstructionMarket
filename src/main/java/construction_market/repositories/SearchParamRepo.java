@@ -7,7 +7,9 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import java.util.List;
 
-
+/**
+ * This is Spring Data Rest repository
+ */
 @RepositoryRestResource(exported = false, excerptProjection = SearchparamProjection.class)
 public interface SearchParamRepo extends Repository<SearchParameterE, Long> {
 

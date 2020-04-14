@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.Serializable;
 
+/**
+ * This is EntryPoint that returns the error when restricted resource is requested but no valid JWT is passed
+ */
 @Component
 public class JwtUnAuthorizedResponseAuthenticationEntryPoint implements AuthenticationEntryPoint, Serializable {
 

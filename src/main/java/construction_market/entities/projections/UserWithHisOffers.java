@@ -8,6 +8,10 @@ import org.springframework.data.rest.core.config.Projection;
 
 import java.util.List;
 
+/**
+ * This is projection interface
+ * it is used to represent user info & user offer used for the user page in the UI
+ */
 @Projection(name = "userWithHisOffers", types = {UserE.class})
 public interface UserWithHisOffers {
 

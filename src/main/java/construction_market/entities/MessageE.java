@@ -8,6 +8,10 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+/**
+ * This is simple entity class
+ * it represents message for the in-app messanger
+ */
 @Data
 @Entity
 @EntityListeners(AuditingEntityListener.class)

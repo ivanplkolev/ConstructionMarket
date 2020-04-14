@@ -9,6 +9,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+/**
+ * This is UserDetailsService class that loads the user by username from its repo
+ */
 @Service
 public class JwtUserDetailsService implements UserDetailsService {
 

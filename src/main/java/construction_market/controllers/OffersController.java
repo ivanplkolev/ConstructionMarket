@@ -13,9 +13,9 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by x on 17.8.2019 г..
+ * This is Controller for more complicated requests
+ * it is used for the searching engine for the offers that matches several criterias
  */
-
 @Controller
 @CrossOrigin
 public class OffersController {
@@ -37,7 +37,7 @@ public class OffersController {
 
 
     @RequestMapping(method = RequestMethod.GET, value = "/api/offersearch")
-    public List<OfferE> controllerMethod(@RequestParam Map<String, String> customQuery) {
+    public List<OfferE> searchOffers(@RequestParam Map<String, String> customQuery) {
 
         String searchInput = customQuery.get("searchInput");
         Long cat = new Long(customQuery.get("cat"));
@@ -60,7 +60,8 @@ public class OffersController {
         return offerRepo.findAll(specification);
     }
 
-
+    // this is debug method the same could be developed in the EvenetRepo
+    // TODO: remove that metod from here
     @PostMapping("/api/saveHelper/eventEs")
     EventE saveEventE(@RequestBody EventE event) {
 //        offerRepo.save(event.getParent());//todo -- make it like in the agreement --- it is correct !!!
@@ -82,6 +83,8 @@ public class OffersController {
         return event;
     }
 
+    // this is debug method the same could be developed in the AgreementRepo
+    // TODO: remove that metod from here
     @PostMapping("/api/saveHelper/offerEs")
     OfferE saveOfferE(@RequestBody OfferE offer) {
         offerRepo.save(offer);
@@ -95,6 +98,8 @@ public class OffersController {
         return offer;
     }
 
+    // this is debug method the same could be developed in the AgreementRepo
+    // TODO: remove that metod from here
     @PostMapping("/api/saveHelper/agreementEs")
     AgreementE saveAgreement(@RequestBody AgreementE agreementE) {
 
@@ -111,6 +116,8 @@ public class OffersController {
         return agreementE;
     }
 
+    // this is debug method the same could be developed in the FeedBackRepo
+    // TODO: remove that metod from here
     @PostMapping("/api/saveHelper/feedBackEs")
     FeedBackE saveFeedBack(@RequestBody FeedBackE feedBack) {
 

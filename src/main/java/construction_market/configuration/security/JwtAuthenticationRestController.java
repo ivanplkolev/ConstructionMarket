@@ -16,6 +16,14 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Objects;
 
+
+/**
+ * This is controller for the authentication process
+ * it responds to the /authenticate url mapping which is defined in application properties file
+ * after successfull authentication it creates JWT token and returns it as response
+ * It also recreates the JWT token when refresh request is passed,
+ * the url mapping is again in the properties file
+ */
 @RestController
 @CrossOrigin
 public class JwtAuthenticationRestController {

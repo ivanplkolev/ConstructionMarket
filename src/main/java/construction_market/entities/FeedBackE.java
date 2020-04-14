@@ -6,7 +6,8 @@ import lombok.Data;
 import javax.persistence.*;
 
 /**
- * Created by x on 13.10.2019 г..
+ * This is simple entity class
+ * it represents feedback for some offer
  */
 @Data
 @Entity

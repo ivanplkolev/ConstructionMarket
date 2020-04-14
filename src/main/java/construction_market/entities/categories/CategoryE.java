@@ -7,6 +7,10 @@ import lombok.Data;
 import javax.persistence.*;
 import java.util.List;
 
+/**
+ * This is simple entity class
+ * it represents category of the offer
+ */
 @Data
 @Entity
 public class CategoryE {

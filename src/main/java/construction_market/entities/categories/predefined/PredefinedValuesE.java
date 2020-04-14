@@ -6,6 +6,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+/**
+ * This is simple entity class
+ * it represents predefined value for param of the offer
+ * like enumeration but runtime defined
+ */
 @Data
 @Entity
 public class PredefinedValuesE {

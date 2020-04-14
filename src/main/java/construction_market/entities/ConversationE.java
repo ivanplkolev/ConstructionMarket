@@ -9,6 +9,10 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * This is simple entity class
+ * it represents in app conversation with messages
+ */
 @Data
 @Entity
 @EntityListeners(AuditingEntityListener.class)

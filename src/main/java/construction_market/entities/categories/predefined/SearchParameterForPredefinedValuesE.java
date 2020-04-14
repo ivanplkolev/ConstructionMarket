@@ -5,6 +5,10 @@ import lombok.Data;
 import javax.persistence.*;
 import java.util.List;
 
+/**
+ * This is simple entity class
+ * it represents search param for predefined values
+ */
 @Data
 @Entity
 public class SearchParameterForPredefinedValuesE {

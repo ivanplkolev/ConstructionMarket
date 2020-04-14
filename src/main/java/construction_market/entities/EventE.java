@@ -6,6 +6,10 @@ import lombok.Data;
 import javax.persistence.*;
 import java.time.LocalDate;
 
+/**
+ * This is simple entity class
+ * it represents event for some offer, it will occur in the users calendar
+ */
 @Data
 @Entity
 public class EventE {
